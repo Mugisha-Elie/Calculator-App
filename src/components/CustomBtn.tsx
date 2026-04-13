@@ -1,15 +1,15 @@
-import type { BtnProps } from "../types/BtnProps"
+import type { BtnProps } from "../types/BtnProps";
 
-export default function CustomBtn({label, color="light-gray", span = 1, onClick}: BtnProps){
+export default function CustomBtn({label, span = 1, color = 'light-gray', onClick}: BtnProps){
     const colorClasses = {
-        'light-gray': 'bg-[#DBDBDB] text-black',
-        'orange': 'bg-[#F38636] text-white'
+        'light-gray': 'text-black bg-[#DBDBDB]',
+        'orange': 'text-white bg-[#F38636]'
     }
 
     return (
         <button
-        onClick={() => onClick ? onClick(label) : ""}
-        className={`${colorClasses[color]} col-span-${span} h-20 text-2xl font-medium flex justify-center items-center cursor-pointer`}
+        onClick={() => onClick(label)}
+        className={`${colorClasses[color]} text-3xl font-medium p-5 col-span-${span} cursor-pointer`}
         >
             {label}
         </button>
