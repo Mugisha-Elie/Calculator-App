@@ -8,32 +8,52 @@ export default function App(){
   const [currentValue, setCurrentValue] = useState("0");
   const [previousValue, setPreviousValue] = useState("0");
   const [operator, setOperator] = useState("");
+  const [expression, setExpression] = useState("");
+  const [shouldOverwrite, setShouldOverwrite] = useState(false);
 
 function handleButtonClick(label: string){
     if(!isNaN(Number(label)) || label === "."){
 
       if(label === "." && currentValue.includes(".")) return;
 
-      setCurrentValue(prev => (
-        prev === "0" ?
-        label === "." ? prev + label : label
-        : prev + label
-      ))
+      setCurrentValue(prev => {
+        if(prev === "0"){
+        if(label === "."){
+          return prev + label
+        }else{
+          return label
+        }
+      }else if(shouldOverwrite){
+        if(label === "."){
+          return `0${label}`
+        }else{
+          return label
+        }
+      }else{
+        return prev + label;
+      }
+      })
+
+      setShouldOverwrite(false)
 
     }else if(label === "AC"){
 
       setCurrentValue("0");
       setPreviousValue("0");
       setOperator("");
+      setExpression("")
       return;
 
     }else if(operators.includes(label)){
       if(operator && previousValue !== "0"){
         const prev = parseFloat(previousValue);
         const curr = parseFloat(currentValue)
-        setPreviousValue(() => String(calculate(prev, curr, operator)))
+        const result = String(calculate(prev, curr, operator))
+        setPreviousValue(result)
+        setExpression(`${result} ${label}`)
         setCurrentValue("0")
       }else{
+        setExpression(`${currentValue} ${label}`)
         setPreviousValue(currentValue);
         setCurrentValue("0");
       }
@@ -41,12 +61,16 @@ function handleButtonClick(label: string){
       return;
 
     }else if(label === "="){
+      if(operator === "") return;
       const prev = parseFloat(previousValue);
       const curr = parseFloat(currentValue);
+
+      setExpression(`${previousValue} ${operator} ${currentValue} =`)
 
       setCurrentValue(() => String(calculate(prev, curr, operator)))
       setOperator("")
       setPreviousValue("0")
+      setShouldOverwrite(true)
     }else if(label === "+/-"){
       setCurrentValue(value => String(parseFloat(value) * -1))
       return;
@@ -61,7 +85,11 @@ function handleButtonClick(label: string){
     <div className="min-h-screen flex justify-center items-center">
       <div className="grid grid-cols-4 bg-[#7A7B88] p-px gap-px w-80">
 
-        <div className="col-span-4 p-3 text-white text-2xl font-bold text-right h-15">{currentValue}</div>
+        <div className="col-span-4 p-3 text-white text-2xl font-bold text-right min-h-25 flex flex-col justify-end gap-2">
+          <div className="text-md text-gray-300 h-6">{expression}</div>
+          <div className="truncate">{currentValue}</div>
+        </div>
+
         <CustomBtn label="AC" onClick={handleButtonClick} />
         <CustomBtn label="+/-" onClick={handleButtonClick} />
         <CustomBtn label="%" onClick={handleButtonClick} />
