@@ -1,7 +1,7 @@
 import type { BtnProps } from "../types/BtnProps";
 
 export default function CustomBtn({label, span = 1, color = 'light-gray', onClick}: BtnProps){
-    throw new Error("Simulated Crush")
+    // throw new Error("Simulated Crush")
 
     const colorClasses = {
         'light-gray': 'text-black bg-[#DBDBDB]',

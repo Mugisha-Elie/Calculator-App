@@ -2,6 +2,7 @@ import CustomBtn from "./components/CustomBtn"
 import { useReducer } from "react"
 import calculatorReducer from "./store/calculatorReducer"
 import { initialState } from "./store/initialState"
+import DailyTip from "./components/DailyTip"
 
 
 
@@ -27,7 +28,7 @@ export default function App(){
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="min-h-screen flex  justify-center items-center gap-[10%]">
       <div className="grid grid-cols-4 bg-[#7A7B88] p-px gap-px w-80">
 
         <div className="col-span-4 p-3 text-white text-2xl font-bold text-right min-h-25 flex flex-col justify-end gap-2">
@@ -56,6 +57,8 @@ export default function App(){
         <CustomBtn label="=" color="orange" onClick={handleButtonClick} />
 
       </div>
+
+      <DailyTip />
     </div>
   )
 }
