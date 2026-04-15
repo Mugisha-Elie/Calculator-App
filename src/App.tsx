@@ -2,8 +2,8 @@ import CustomBtn from "./components/CustomBtn"
 import { useReducer } from "react"
 import calculatorReducer from "./store/calculatorReducer"
 import { initialState } from "./store/initialState"
-import DailyTip from "./components/DailyTip"
-
+import DailyTipContainer from "./components/DailyTipContainer"
+import { Suspense } from "react"
 
 
 const operators = ["+", "-", "x", "/"]
@@ -58,7 +58,15 @@ export default function App(){
 
       </div>
 
-      <DailyTip />
+      <Suspense
+      fallback={
+        <div>
+          <p className="text-slate-800 italic text-xl">Loading...</p>
+        </div>
+      }
+      >
+        <DailyTipContainer />
+      </Suspense>
     </div>
   )
 }
