@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import type {ErrorInfo } from "react"
 
 interface State{
@@ -20,9 +20,9 @@ export default class ErrorBoundary extends Component<Props, State>{
         }
     }
 
-    public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-        console.log("Uncaught Error: ", error, errorInfo )
-    }
+    // public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    //     console.log("Uncaught Error: ", error, errorInfo )
+    // }
 
     public render(){
         if(this.state.hasError){
