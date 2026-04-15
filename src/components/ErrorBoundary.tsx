@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
+=======
+import { Component } from "react";
+>>>>>>> suspense
 import type {ErrorInfo } from "react"
 
 interface State{
@@ -20,9 +24,15 @@ export default class ErrorBoundary extends Component<Props, State>{
         }
     }
 
+<<<<<<< HEAD
     public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
         console.log("Uncaught Error: ", error, errorInfo )
     }
+=======
+    // public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    //     console.log("Uncaught Error: ", error, errorInfo )
+    // }
+>>>>>>> suspense
 
     public render(){
         if(this.state.hasError){

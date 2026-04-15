@@ -2,7 +2,8 @@ import CustomBtn from "./components/CustomBtn"
 import { useReducer } from "react"
 import calculatorReducer from "./store/calculatorReducer"
 import { initialState } from "./store/initialState"
-
+import DailyTipContainer from "./components/DailyTipContainer"
+import { Suspense } from "react"
 
 
 const operators = ["+", "-", "x", "/"]
@@ -27,10 +28,13 @@ export default function App(){
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="min-h-screen flex  justify-center items-center gap-[10%]">
       <div className="grid grid-cols-4 bg-[#7A7B88] p-px gap-px w-80">
 
-        <div className="col-span-4 p-3 text-white text-2xl font-bold text-right h-15">{state.currentValue}</div>
+        <div className="col-span-4 p-3 text-white text-2xl font-bold text-right min-h-25 flex flex-col justify-end gap-2">
+          {/* <div className="text-md text-gray-300 h-6">{expression}</div> */}
+          <div className="truncate">{state.currentValue}</div>
+        </div>
 
         <CustomBtn label="AC" onClick={handleButtonClick} />
         <CustomBtn label="+/-" onClick={handleButtonClick} />
@@ -53,6 +57,16 @@ export default function App(){
         <CustomBtn label="=" color="orange" onClick={handleButtonClick} />
 
       </div>
+
+      <Suspense
+      fallback={
+        <div>
+          <p className="text-slate-800 italic text-xl">Loading...</p>
+        </div>
+      }
+      >
+        <DailyTipContainer />
+      </Suspense>
     </div>
   )
 }
